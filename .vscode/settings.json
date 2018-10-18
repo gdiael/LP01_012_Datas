@@ -33,6 +33,7 @@
         "vector": "cpp",
         "fstream": "cpp",
         "functional": "cpp",
-        "numeric": "cpp"
+        "numeric": "cpp",
+        "chrono": "cpp"
     }
 }
