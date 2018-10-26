@@ -1,5 +1,16 @@
 #include "data.h"
 
+    int Data::m_duracaoMes(int mes){
+        mes = (mes == 0) ? this->m_mes : mes;
+        if(mes == 2){
+            return this->isBissexto() ? 29 : 28;
+        }else if(mes == 1 || mes == 3 || mes == 5 || mes == 7 || mes == 8 || mes == 10 || mes == 12){
+            return 31;
+        }else{
+            return 30;
+        };
+    }
+
     Data::Data(){
         chrono::system_clock::time_point now = std::chrono::system_clock::now();
         time_t tt = chrono::system_clock::to_time_t(now);
@@ -35,37 +46,39 @@
     }
 
     void Data::somarDias(int dias){
-
+        if(dias < 0){
+            return;
+        }
+        this->m_dia += dias;
+        while(this->m_dia > this->m_duracaoMes()){
+            this->m_dia -= this->m_duracaoMes();
+            this->somarMeses(1);
+        }
     }
 
     void Data::somarMeses(int meses){
-
+        this->m_mes += meses;
+        while(this->m_mes > 12){
+            this->m_mes -= 12;
+            this->somarAnos(1);
+        }
+        this->somarDias(0);
     }
 
     void Data::somarAnos(int anos){
-
+        this->m_ano += anos;
     }
 
     void Data::proximoDia(){
-        
+        this->somarDias(1);
     }
 
     ostream &operator<<(ostream &os, Data &dt){
         string dia = to_string(dt.m_dia);
         dia = (dt.m_dia < 10) ? "0" + dia : dia;
         string mes = to_string(dt.m_mes);
+        mes = (dt.m_mes < 10) ? "0" + mes : mes;
         string ano = to_string(dt.m_ano);
-        os << dt.m_dia << "/" << dt.m_mes << "/" << dt.m_ano;
+        os << dia << "/" << mes << "/" << ano;
         return os;
-    }
-
-    int Data::m_duracaoMes(int mes){
-        mes = (mes == 0) ? this->m_mes : mes;
-        if(mes == 2){
-            return this->isBissexto() ? 29 : 28;
-        }else if(mes == 1 || mes == 3 || mes == 5 || mes == 7 || mes == 8 || mes == 10 || mes == 12){
-            return 31;
-        }else{
-            return 30;
-        };
     }
