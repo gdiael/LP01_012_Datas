@@ -8,7 +8,7 @@ int main(int argc, char const *argv[])
     cout << "Mostrar data de amnhã:" << endl;
     agora.proximoDia();
     cout << agora << endl;
-    cout << "Somar dois anos a data de hoje:" << endl;
+    cout << "Somar dois anos a data anterior:" << endl;
     agora.somarAnos(2);
     cout << agora << endl;
     cout << "Somar tres meses a data anterior:" << endl;

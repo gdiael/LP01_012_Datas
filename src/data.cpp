@@ -62,6 +62,7 @@
             this->m_mes -= 12;
             this->somarAnos(1);
         }
+        // organizar os dias (evitar datas como 31/02)
         this->somarDias(0);
     }
 
